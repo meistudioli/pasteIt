@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" x-frame-options="sameorigin">
+<head>
+<meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
+<meta http-equiv="PRAGMA" content="NO-CACHE">
+<meta http-equiv="Expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="description" content="「Textarea」這個 form element 相信大家都不陌生, 它可以說是 vistor 與開發者最初的溝通媒介之一, vistor 可以藉由這個 element 將一些想法訴諸文字在此進行輸入, 由於它被設計的用意就是接收與存放文字為主要用途, 也因此眾多的開發者都會以此為前提下去開發, 不過這當然也會埋下一個開發的盲點 - 它...能否張貼其他非文字類型的內容 ?? 早期受限於瀏覽器支援度的問題, 確實我們無法從 clipboard 取出任何資料, 更不用說知否有支援 paste 這樣的 event, 不過近幾年來 HTML5 迅速的發展, 許多開發者的想法都得以在瀏覽器中被落實, 也因此, 在 textarea 中張貼非文字類型的內容再也不是一個空談了, pasteIt 這個 polyfill 便是因應這個需求被開發出來, 藉由 pasteIt 的導入, 我們便可以在 texarea 中張貼 image data, 除此之外, 它也賦予 textarea Drag and Drop(DnD) 的功能, vistor 可以直接拖曳 image files 到 textarea 中, 便可以有著跟 paste 一樣的效果. 這樣的效果其實已經被廣泛的應用到 web 中, 比方說 facebook IM 便支援著這樣的功能, 筆者因為工作的關係, 需要常常傳圖作需求確認與溝通, 因此有這樣的 support 對筆者來說真真方便非常!! 希望藉由 pasteIt 這個 polyfill 的開發可以讓有所有有這方面需求的朋友們有所助益">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@mei">
+<meta name="twitter:creator" content="@mei">
+<meta name="twitter:title" content="pasteIt - textarea feature extend which make paste / drag image possible">
+<meta name="twitter:description" content="「Textarea」這個 form element 相信大家都不陌生, 它可以說是 vistor 與開發者最初的溝通媒介之一, vistor 可以藉由這個 element 將一些想法訴諸文字在此進行輸入, 由於它被設計的用意就是接收與存放文字為主要用途, 也因此眾多的開發者都會以此為前提下去開發, 不過這當然也會埋下一個開發的盲點 - 它...能否張貼其他非文字類型的內容 ?? 早期受限於瀏覽器支援度的問題, 確實我們無法從 clipboard 取出任何資料, 更不用說知否有支援 paste 這樣的 event, 不過近幾年來 HTML5 迅速的發展, 許多開發者的想法都得以在瀏覽器中被落實, 也因此, 在 textarea 中張貼非文字類型的內容再也不是一個空談了, pasteIt 這個 polyfill 便是因應這個需求被開發出來, 藉由 pasteIt 的導入, 我們便可以在 texarea 中張貼 image data, 除此之外, 它也賦予 textarea Drag and Drop(DnD) 的功能, vistor 可以直接拖曳 image files 到 textarea 中, 便可以有著跟 paste 一樣的效果. 這樣的效果其實已經被廣泛的應用到 web 中, 比方說 facebook IM 便支援著這樣的功能, 筆者因為工作的關係, 需要常常傳圖作需求確認與溝通, 因此有這樣的 support 對筆者來說真真方便非常!! 希望藉由 pasteIt 這個 polyfill 的開發可以讓有所有有這方面需求的朋友們有所助益">
+<meta name="twitter:image:src" content="http://mei.homin.com.tw/img/preview/pasteIt.png">
+<meta property="og:title" content="pasteIt - textarea feature extend which make paste / drag image possible">
+<meta property="og:site_name" content="mei">
+<meta property="og:description" content="「Textarea」這個 form element 相信大家都不陌生, 它可以說是 vistor 與開發者最初的溝通媒介之一, vistor 可以藉由這個 element 將一些想法訴諸文字在此進行輸入, 由於它被設計的用意就是接收與存放文字為主要用途, 也因此眾多的開發者都會以此為前提下去開發, 不過這當然也會埋下一個開發的盲點 - 它...能否張貼其他非文字類型的內容 ?? 早期受限於瀏覽器支援度的問題, 確實我們無法從 clipboard 取出任何資料, 更不用說知否有支援 paste 這樣的 event, 不過近幾年來 HTML5 迅速的發展, 許多開發者的想法都得以在瀏覽器中被落實, 也因此, 在 textarea 中張貼非文字類型的內容再也不是一個空談了, pasteIt 這個 polyfill 便是因應這個需求被開發出來, 藉由 pasteIt 的導入, 我們便可以在 texarea 中張貼 image data, 除此之外, 它也賦予 textarea Drag and Drop(DnD) 的功能, vistor 可以直接拖曳 image files 到 textarea 中, 便可以有著跟 paste 一樣的效果. 這樣的效果其實已經被廣泛的應用到 web 中, 比方說 facebook IM 便支援著這樣的功能, 筆者因為工作的關係, 需要常常傳圖作需求確認與溝通, 因此有這樣的 support 對筆者來說真真方便非常!! 希望藉由 pasteIt 這個 polyfill 的開發可以讓有所有有這方面需求的朋友們有所助益">
+<meta property="og:image" content="http://mei.homin.com.tw/img/preview/pasteIt.png">
+<title>pasteIt - textarea feature extend which make paste / drag image possible</title>
+<link rel="dns-prefetch" href="//mei.homin.com.tw">
+<link rel="canonical" href="http://mei.homin.com.tw/pasteItPrototype.html">
+<link rel="stylesheet" href="css/cssbase.css">
+<link rel="stylesheet" href="css/adornFormElements.css">
+<link rel="stylesheet" href="css/pasteIt.css">
+<script src="js/pageRender.js" data-source="js/pasteIt.js&js/pasteItInit.js"></script>
+</head>
+
+<body>
+<header id="hd" role="banner">
+	<h1>pasteIt - textarea feature extend which make paste / drag image possible</h1>
+</header>
+
+<main id="bd" role="main">
+	<section>
+		<form autocomplete="off">
+			<h3>element for paste</h3>
+			<label class="textarea">
+				<span>textarea</span>
+				<textarea class="decoration" placeholder="paste image here" data-paste-it="on"></textarea>
+				<div class="sk-folding-cube">
+					<div class="sk-cube1 sk-cube"></div>
+					<div class="sk-cube2 sk-cube"></div>
+					<div class="sk-cube4 sk-cube"></div>
+					<div class="sk-cube3 sk-cube"></div>
+				</div>
+			</label>
+		</form>
+	</section>
+</main>
+
+<footer id="ft">
+	<small role="contentinfo">Powered by mei's studio.</small>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "CreativeWork",
+  "name": "pasteIt - textarea feature extend which make paste / drag image possible",
+  "url": "http://mei.homin.com.tw/pasteItPrototype.html",
+  "description": "「Textarea」這個 form element 相信大家都不陌生, 它可以說是 vistor 與開發者最初的溝通媒介之一, vistor 可以藉由這個 element 將一些想法訴諸文字在此進行輸入, 由於它被設計的用意就是接收與存放文字為主要用途, 也因此眾多的開發者都會以此為前提下去開發, 不過這當然也會埋下一個開發的盲點 - 它...能否張貼其他非文字類型的內容 ?? 早期受限於瀏覽器支援度的問題, 確實我們無法從 clipboard 取出任何資料, 更不用說知否有支援 paste 這樣的 event, 不過近幾年來 HTML5 迅速的發展, 許多開發者的想法都得以在瀏覽器中被落實, 也因此, 在 textarea 中張貼非文字類型的內容再也不是一個空談了, pasteIt 這個 polyfill 便是因應這個需求被開發出來, 藉由 pasteIt 的導入, 我們便可以在 texarea 中張貼 image data, 除此之外, 它也賦予 textarea Drag and Drop(DnD) 的功能, vistor 可以直接拖曳 image files 到 textarea 中, 便可以有著跟 paste 一樣的效果. 這樣的效果其實已經被廣泛的應用到 web 中, 比方說 facebook IM 便支援著這樣的功能, 筆者因為工作的關係, 需要常常傳圖作需求確認與溝通, 因此有這樣的 support 對筆者來說真真方便非常!! 希望藉由 pasteIt 這個 polyfill 的開發可以讓有所有有這方面需求的朋友們有所助益",
+  "image": "http://mei.homin.com.tw/img/preview/pasteIt.png",
+  "author": {
+	  "@type": "Person",
+	  "name": "Paul Li",
+	  "jobTitle": "Front End engineer",
+	  "affiliation": "mei's studio",
+	  "additionalName": "mei",
+	  "url": "https://www.facebook.com/mei.studio.li",
+	  "image": "https://graph.facebook.com/mei.studio.li/picture",
+	  "brand": "mei's studio",
+	  "familyName": "Li",
+	  "gender": "M",
+	  "givenName": "Paul",
+	  "owns": "mei's studio",
+	  "worksFor": "Yahoo",
+	  "description": "People who loves all front end skills"
+  },
+  "dateCreated": "2016-09-20",
+  "datePublished": "2016-09-20",
+  "genre": "web components",
+  "keywords": "pasteIt,textarea,polyfill"
+}
+</script>
+</body>
+</html>
