@@ -262,7 +262,7 @@
 
 	attachedCallback = function(node) {
 		var pasteItValue;
-		if (!/textarea/i.test(node.tagName) || typeof node.pasteIt != 'undefined') return;
+		if (typeof node.tagName == 'undefined' || !/textarea/i.test(node.tagName) || typeof node.pasteIt != 'undefined') return;
 
 		pasteItValue = false;
 		Object.defineProperties(node, {
@@ -365,7 +365,15 @@
 				if (mutation.type != 'childList') return;
 				[].slice.call(mutation.addedNodes).forEach(
 					function(node) {
-						attachedCallback(node);
+						if (node.childNodes.length) {
+							[].slice.call(node.querySelectorAll('textarea')).forEach(
+								function(target) {
+									attachedCallback(target);
+								}
+							);
+						} else {
+							attachedCallback(node);
+						}//end if
 					}
 				);
 			});
