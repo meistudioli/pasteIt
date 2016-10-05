@@ -219,8 +219,8 @@ init = {
 					console.log('query done.');
 
 					ResultObj = {info:'fail'};
-					if (e.status == 200) {
-						try {ResultObj=JSON.parse(o.responseText.replace(/\)\]\}',\n/, ''));} catch(e) {}
+					if (this.status == 200) {
+						try {ResultObj=JSON.parse(this.responseText.replace(/\)\]\}',\n/, ''));} catch(e) {}
 					}//end if
 				}//end if
 				break;
