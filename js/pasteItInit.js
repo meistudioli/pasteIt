@@ -110,7 +110,7 @@ tRy = {
 				if (typeof styleSheet == 'undefined') {
 					var s = document.createElement('style');
 					s.type = 'text/css';
-					document.head.appendChild(s);
+					document.getElementsByTagName('head')[0].appendChild(s);
 					for (var i=-1,l=document.styleSheets.length;++i<l;) {
 						var ss = document.styleSheets[i];
 						if (ss.disabled || typeof ss.usable != 'undefined' && !ss.usable) continue;
@@ -127,8 +127,16 @@ tRy = {
 			for (var i=-1,l=styleSheet.rules.length;++i<l;) if (styleSheet.rules[i].selectorText && styleSheet.rules[i].selectorText.toLowerCase() == selector.toLowerCase()) { styleSheet.rules[i].style.cssText = style; return; }
 			styleSheet.addRule(selector, style);
 	    } else if (mediaType == 'object') {
-			for (var i=-1,l=styleSheet.cssRules.length;++i<l;) if (styleSheet.cssRules[i].selectorText && styleSheet.cssRules[i].selectorText.toLowerCase() == selector.toLowerCase()) { styleSheet.cssRules[i].style.cssText = style; return; }
-			styleSheet.insertRule(selector + '{' + style + '}', 0);
+	        var isClear;
+	        try {
+	            isClear = (styleSheet.cssRules == null) ? false : true;
+	        } catch(err) { isClear = true; }
+	        if (isClear) {
+	            for (var i=-1,l=styleSheet.cssRules.length;++i<l;) if (styleSheet.cssRules[i].selectorText && styleSheet.cssRules[i].selectorText.toLowerCase() == selector.toLowerCase()) { styleSheet.cssRules[i].style.cssText = style; return; }
+	            styleSheet.insertRule(selector + '{' + style + '}', 0);
+	        } else {
+	            styleSheet.insertRule(selector + '{' + style + '}', 0);
+	        }//end if
 	    }//end if
 	},
 	fcamelCase: function(all, letter) {
@@ -198,7 +206,7 @@ tRy = {
 init = {
 	data: {},
 	ens: {},
-	path4EXIFReader: 'js/ExifReader-min.js',
+	path4EXIFReader: '/Modules/script/ExifReader-min.js',
 	uri4Upload: 'pasteItFunc.php',
 	//method
 	xhrHandle: function(e) {
@@ -220,7 +228,7 @@ init = {
 
 					ResultObj = {info:'fail'};
 					if (this.status == 200) {
-						try {ResultObj=JSON.parse(this.responseText.replace(/\)\]\}',\n/, ''));} catch(e) {}
+						try {ResultObj=JSON.parse(this.responseText.replace(/\)\]\}',\n/, ''));} catch(err) {}
 					}//end if
 				}//end if
 				break;
