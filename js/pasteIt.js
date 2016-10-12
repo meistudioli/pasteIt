@@ -207,8 +207,16 @@
 			for (var i=-1,l=styleSheet.rules.length;++i<l;) if (styleSheet.rules[i].selectorText && styleSheet.rules[i].selectorText.toLowerCase() == selector.toLowerCase()) { styleSheet.rules[i].style.cssText = style; return; }
 			styleSheet.addRule(selector, style);
 	    } else if (mediaType == 'object') {
-			for (var i=-1,l=styleSheet.cssRules.length;++i<l;) if (styleSheet.cssRules[i].selectorText && styleSheet.cssRules[i].selectorText.toLowerCase() == selector.toLowerCase()) { styleSheet.cssRules[i].style.cssText = style; return; }
-			styleSheet.insertRule(selector + '{' + style + '}', 0);
+	        var isClear;
+	        try {
+	            isClear = (styleSheet.cssRules == null) ? false : true;
+	        } catch(err) { isClear = true; }
+	        if (isClear) {
+	            for (var i=-1,l=styleSheet.cssRules.length;++i<l;) if (styleSheet.cssRules[i].selectorText && styleSheet.cssRules[i].selectorText.toLowerCase() == selector.toLowerCase()) { styleSheet.cssRules[i].style.cssText = style; return; }
+	            styleSheet.insertRule(selector + '{' + style + '}', 0);
+	        } else {
+	            styleSheet.insertRule(selector + '{' + style + '}', 0);
+	        }//end if
 	    }//end if
 	};
 
@@ -365,6 +373,7 @@
 				if (mutation.type != 'childList') return;
 				[].slice.call(mutation.addedNodes).forEach(
 					function(node) {
+						// attachedCallback(node);
 						if (node.childNodes.length) {
 							[].slice.call(node.querySelectorAll('textarea')).forEach(
 								function(target) {
