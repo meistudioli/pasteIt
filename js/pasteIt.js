@@ -318,7 +318,7 @@
 						if (this.hasAttribute('data-paste-it')) this.removeAttribute('data-paste-it', 'on');
 						this.removeEventListener(action, evtHandler, false);
 					}//end if
-				},
+				}
 			},
 			addCallback: {
 				configurable: false,
