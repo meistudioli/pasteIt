@@ -206,7 +206,7 @@ tRy = {
 init = {
 	data: {},
 	ens: {},
-	path4EXIFReader: '/Modules/script/ExifReader-min.js',
+	path4EXIFReader: '/js/ExifReader-min.js',
 	uri4Upload: 'pasteItFunc.php',
 	//method
 	xhrHandle: function(e) {

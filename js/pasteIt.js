@@ -1,6 +1,6 @@
 //pasteIt
 (function() {
-	var dataURItoBlob, ddBeacon, ddAct, isEventSupported, createCSSClass, attachedCallback, evtHandler, standard, negative, vessel, mark;
+	var dataURItoBlob, ddBeacon, ddAct, isEventSupported, createCSSClass, attachedCallback, evtHandler, standard, negative, vessel, mark, isSafari;
 
 	if (typeof FileReader == 'undefined' || typeof MutationObserver == 'undefined') return;
 
@@ -263,7 +263,8 @@
 					mark.target = this;
 					mark.start = this.selectionStart;
 					mark.end = this.selectionEnd;
-					negative.focus();
+					// negative.focus();
+					if (!isSafari) negative.focus();
 				}//end if
 		}//end switch
 	};
@@ -356,6 +357,9 @@
 
 		node.pasteIt = node.hasAttribute('data-paste-it');
 	};
+
+	//Safari
+	isSafari = /safari/i.test(navigator.userAgent) && /apple/i.test(navigator.vendor);
 
 	//standard
 	if (typeof ClipboardEvent != 'undefined') {

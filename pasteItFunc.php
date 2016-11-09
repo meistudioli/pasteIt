@@ -28,9 +28,11 @@ switch ($action) {
 	case 'drop':
 		foreach ($_FILES as $Key => $Value) {
 			$file_content .= 'ColName: '.$Key."\n";
+			$file_content .= 'FileType: '.$Value['type']."\n";
 			$file_content .= 'FileName: '.$Value['name']."\n";
 			$file_content .= 'FileSize: '.$Value['size']."\n";
-			$MovePath = str_replace('\\', '/', realpath("./").'/inputFiles/'.$Value['name']);
+			$name = preg_match('/.*\..*/', $Value['name']) ? $Value['name'] : $Value['name'].'.png';
+			$MovePath = str_replace('\\', '/', realpath("./").'/inputFiles/'.$name);
 			$file_content .= 'RealPath: '.$MovePath."\n\n";
 			move_uploaded_file($Value['tmp_name'], $MovePath);
 		}//end for
