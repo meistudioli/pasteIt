@@ -31,7 +31,7 @@ switch ($action) {
 			$file_content .= 'FileType: '.$Value['type']."\n";
 			$file_content .= 'FileName: '.$Value['name']."\n";
 			$file_content .= 'FileSize: '.$Value['size']."\n";
-			$name = preg_match('/.*\..*/', $Value['name']) ? $Value['name'] : $Value['name'].'.png';
+			$name = preg_match('/.*\..*/', $Value['name']) ? $Value['name'] : 'pasteIt_'.microtime(true).'.png';
 			$MovePath = str_replace('\\', '/', realpath("./").'/inputFiles/'.$name);
 			$file_content .= 'RealPath: '.$MovePath."\n\n";
 			move_uploaded_file($Value['tmp_name'], $MovePath);

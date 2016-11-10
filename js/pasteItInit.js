@@ -240,12 +240,15 @@ init = {
 		var xhr = new XMLHttpRequest(),
 			fd = new FormData(),
 			sets = ['progress', 'load'],
-			uri;
+			uri,
+			fileName;
 
-		// uri = 'pasteItFunc.php';
 		uri = this.uri4Upload;
-		fd.append('action', action);
-		fd.append('Filedata', action == 'drop' ? imageData.blob : imageData.dataURL);
+		// fd.append('action', action);
+		// fd.append('Filedata', action == 'drop' ? imageData.blob : imageData.dataURL);
+		fileName = imageData.blob.name || 'pasteIt_' + new Date().getTime() + '.png';
+		fd.append('action', 'drop');
+		fd.append('Filedata', imageData.blob, fileName);
 
 		//evt
 		for (var j=-1,l2=sets.length;++j<l2;) xhr.upload['on'+sets[j]] = this.xhrHandle;
@@ -467,7 +470,7 @@ init = {
 			case 'prepare':
 				break;
 			default:
-				//paste, drop
+				//paste, drop, dropHTML
 				if (label.classList.contains('droparea')) label.classList.remove('droparea');
 				if (!imageData || !imageData.length) return;
 				
