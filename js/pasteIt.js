@@ -159,7 +159,8 @@
 				s.type = 'text/css';
 				document.getElementsByTagName('head')[0].appendChild(s);
 				s.usable = true;
-				navigator.ssHost = document.styleSheets[document.styleSheets.length-1];
+				// navigator.ssHost = document.styleSheets[document.styleSheets.length-1];
+				navigator.ssHost = s.sheet;
 			}//end if
 		}//end if
 		if (!getSheet) {
@@ -210,7 +211,7 @@
 	        var isClear;
 	        try {
 	            isClear = (styleSheet.cssRules == null) ? false : true;
-	        } catch(err) { isClear = true; }
+	        } catch(err) { isClear = false; }
 	        if (isClear) {
 	            for (var i=-1,l=styleSheet.cssRules.length;++i<l;) if (styleSheet.cssRules[i].selectorText && styleSheet.cssRules[i].selectorText.toLowerCase() == selector.toLowerCase()) { styleSheet.cssRules[i].style.cssText = style; return; }
 	            styleSheet.insertRule(selector + '{' + style + '}', 0);
